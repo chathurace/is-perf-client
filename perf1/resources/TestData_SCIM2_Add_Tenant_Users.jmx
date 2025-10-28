@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="SCIM2 Add Tenant User - Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Server Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="is_host" elementType="Argument">
+            <stringProp name="Argument.name">is_host</stringProp>
+            <stringProp name="Argument.value">${__P(host,localhost)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="is_port" elementType="Argument">
+            <stringProp name="Argument.name">is_port</stringProp>
+            <stringProp name="Argument.value">${__P(port,9443)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="username" elementType="Argument">
+            <stringProp name="Argument.name">username</stringProp>
+            <stringProp name="Argument.value">admin@wso2.com@${__P(tenantPrefix)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="password" elementType="Argument">
+            <stringProp name="Argument.name">password</stringProp>
+            <stringProp name="Argument.value">tpass</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Test Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="usernamePrefix" elementType="Argument">
+            <stringProp name="Argument.name">usernamePrefix</stringProp>
+            <stringProp name="Argument.value">${__P(usernamePrefix,isTestUser_)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="userPassword" elementType="Argument">
+            <stringProp name="Argument.name">userPassword</stringProp>
+            <stringProp name="Argument.value">Password_1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="rolename" elementType="Argument">
+            <stringProp name="Argument.name">rolename</stringProp>
+            <stringProp name="Argument.value">${__P(userRole,isTestUserRole)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="noOfThreads" elementType="Argument">
+            <stringProp name="Argument.name">noOfThreads</stringProp>
+            <stringProp name="Argument.value">${__P(concurrency,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="noOfUsers" elementType="Argument">
+            <stringProp name="Argument.name">noOfUsers</stringProp>
+            <stringProp name="Argument.value">${__P(userCount,1000)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="loopCount" elementType="Argument">
+            <stringProp name="Argument.name">loopCount</stringProp>
+            <stringProp name="Argument.value">${__P(loopCount,1000)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="rampUpPeriod" elementType="Argument">
+            <stringProp name="Argument.name">rampUpPeriod</stringProp>
+            <stringProp name="Argument.value">${__P(rampUpPeriod,10)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="scimIdCsvPath" elementType="Argument">
+            <stringProp name="Argument.name">scimIdCsvPath</stringProp>
+            <stringProp name="Argument.value">scimIDs.csv</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">If just file is provided, will be saved in JMeter bin folder</stringProp>
+          </elementProp>
+          <elementProp name="noOfTenants" elementType="Argument">
+            <stringProp name="Argument.name">noOfTenants</stringProp>
+            <stringProp name="Argument.value">${__P(noOfTenants,5)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="userStartNumber" elementType="Argument">
+            <stringProp name="Argument.name">userStartNumber</stringProp>
+            <stringProp name="Argument.value">${__P(userStartNumber,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="tenantStartNumber" elementType="Argument">
+            <stringProp name="Argument.name">tenantStartNumber</stringProp>
+            <stringProp name="Argument.value">${__P(tenantStartNumber,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Create Role Request" enabled="true">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">${noOfTenants}</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Tenant Index Counter" enabled="true">
+          <stringProp name="CounterConfig.start">1</stringProp>
+          <stringProp name="CounterConfig.end">${noOfTenants}</stringProp>
+          <stringProp name="CounterConfig.incr">1</stringProp>
+          <stringProp name="CounterConfig.name">tenant_index</stringProp>
+          <stringProp name="CounterConfig.format"></stringProp>
+          <boolProp name="CounterConfig.per_user">false</boolProp>
+        </CounterConfig>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Role" enabled="true">
+          <stringProp name="TestPlan.comments">.RemoteUserStoreManagerServiceHttpsSoap11Endpoint</stringProp>
+          <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
+          <stringProp name="HTTPSampler.port">${is_port}</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/services/RemoteUserStoreManagerService</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:ser=&quot;http://service.ws.um.carbon.wso2.org&quot; xmlns:xsd=&quot;http://dao.service.ws.um.carbon.wso2.org/xsd&quot;&gt;&#xd;
+   &lt;soapenv:Header/&gt;&#xd;
+   &lt;soapenv:Body&gt;&#xd;
+      &lt;ser:addRole&gt;&#xd;
+         &lt;ser:roleName&gt;${rolename}&lt;/ser:roleName&gt;       &#xd;
+           &lt;ser:permissions&gt;&#xd;
+            &lt;xsd:action&gt;ui.execute&lt;/xsd:action&gt;&#xd;
+            &lt;xsd:resourceId&gt;/permission/admin/login&lt;/xsd:resourceId&gt;&#xd;
+         &lt;/ser:permissions&gt;&#xd;
+          &lt;ser:permissions&gt;&#xd;
+            &lt;xsd:action&gt;ui.execute&lt;/xsd:action&gt;&#xd;
+            &lt;xsd:resourceId&gt;/permission/admin/configure/&lt;/xsd:resourceId&gt;&#xd;
+         &lt;/ser:permissions&gt;&#xd;
+           &lt;ser:permissions&gt;&#xd;
+            &lt;xsd:action&gt;ui.execute&lt;/xsd:action&gt;&#xd;
+             &lt;xsd:resourceId&gt;/permission/admin/manage/&lt;/xsd:resourceId&gt;&#xd;
+         &lt;/ser:permissions&gt;        &#xd;
+      &lt;/ser:addRole&gt; &#xd;
+&#xd;
+   &lt;/soapenv:Body&gt;&#xd;
+&lt;/soapenv:Envelope&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.commons.codec.binary.Base64;
+String user = vars.get(&quot;username&quot;);
+String passwd = vars.get(&quot;password&quot;);
+String tenantidx = vars.get(&quot;tenant_index&quot;);
+String credentials = user + tenantidx + &quot;.com&quot; + &quot;:&quot; + passwd;
+byte[] encodedUsernamePassword = Base64.encodeBase64(credentials.getBytes());
+vars.put(&quot;adminCredentials&quot;,new String(encodedUsernamePassword));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">SOAPAction</stringProp>
+                <stringProp name="Header.value">urn:addRole</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">text/xml</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Basic ${adminCredentials}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="200 HTTP Code Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="103171777">HTTP/1.1 202</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+            <stringProp name="Assertion.custom_message">Test Failed - Create Role</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">5000</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+        </hashTree>
+        <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+          <stringProp name="TestPlan.comments">Write string &apos;scim_id&apos; to the csv</stringProp>
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.File;
+
+log.error(&quot;============ starting beanshell post processor ===============&quot;);
+
+try {
+	String filePath = vars.get(&quot;scimIdCsvPath&quot;);
+
+	// Delete file if exists
+	File file = new File(filePath);
+	if (file.exists()) {
+		file.delete();
+	}
+
+	FileWriter fstream = new FileWriter(filePath, true);
+	BufferedWriter out = new BufferedWriter(fstream);
+	out.write(&quot;scim_id&quot;);
+	out.write(&quot;\n&quot;);
+	out.close();
+	fstream.close();
+}
+catch (Throwable ex) {
+   log.info(&quot;Error in Beanshell&quot;, ex);
+   throw ex;
+}</stringProp>
+        </BeanShellPostProcessor>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="SCIM2 Add User Request" enabled="true">
+        <intProp name="ThreadGroup.num_threads">3</intProp>
+        <stringProp name="ThreadGroup.ramp_time">${rampUpPeriod}</stringProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">log.error(&quot;============ starting beanshell ===============&quot;);
+
+int getIntVar(String varName) {
+    String value = vars.get(varName);
+    log.info(&quot;Variable: &quot; + varName + &quot; - &quot; + value);
+    if (value == null || value.trim().isEmpty()) {
+        // Log a clear error indicating the missing variable
+        log.error(&quot;Variable &apos;&quot; + varName + &quot;&apos; is null or empty. Please define it.&quot;);
+        throw new IllegalArgumentException(&quot;Missing required variable: &quot; + varName);
+    }
+    try {
+    	int intValue = Integer.parseInt(value.trim());
+    	return intValue;
+    } catch (Throwable eex) {
+    	log.error(&quot;Error while converting value: &quot; + value, eex);
+    	throw eex;
+    }
+}
+
+try {
+	int noOfThreads = getIntVar(&quot;noOfThreads&quot;);
+	int threadNumber = ctx.getThreadNum();
+	threadNumber += 1;
+	int userStartNumber = getIntVar(&quot;userStartNumber&quot;);
+	int noOfUsers = getIntVar(&quot;noOfUsers&quot;);
+	int noUsersPerThread = noOfUsers / noOfThreads;
+	if (threadNumber == 1) {
+		double preciseUsersPerThread = (double) noOfUsers / noOfThreads;
+		if (preciseUsersPerThread != noUsersPerThread) {
+			noUsersPerThread += 1;
+		}
+	}
+
+	int tUserStart = userStartNumber;
+	if (threadNumber != 1) {
+		tUserStart = userStartNumber + ((threadNumber - 1) * noUsersPerThread + 1);
+	}
+	int tUserMax = tUserStart + noUsersPerThread - 1;
+	
+	vars.put(&quot;tUserStart&quot;, String.valueOf(tUserStart));
+	vars.put(&quot;noUsersPerThread&quot;, String.valueOf(noUsersPerThread));
+	vars.put(&quot;tUserMax&quot;, String.valueOf(tUserMax));
+
+	log.info(&quot;Thread number: &quot; + threadNumber + &quot;, User start: &quot; + tUserStart + &quot;, User end: &quot; + tUserMax);
+}
+catch (Throwable ex) {
+   log.info(&quot;Error in Beanshell&quot;, ex);
+   throw ex;
+}
+</stringProp>
+        </BeanShellPreProcessor>
+        <hashTree/>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Tenant loop Controller" enabled="true">
+          <stringProp name="LoopController.loops">${noOfTenants}</stringProp>
+        </LoopController>
+        <hashTree>
+          <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Tenant Index Counter" enabled="true">
+            <stringProp name="CounterConfig.start">${tenantStartNumber}</stringProp>
+            <stringProp name="CounterConfig.end">${noOfTenants}</stringProp>
+            <stringProp name="CounterConfig.incr">1</stringProp>
+            <stringProp name="CounterConfig.name">tenant_index</stringProp>
+            <stringProp name="CounterConfig.format"></stringProp>
+            <boolProp name="CounterConfig.per_user">false</boolProp>
+          </CounterConfig>
+          <hashTree/>
+          <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="User Loop Controller" enabled="true">
+            <boolProp name="LoopController.continue_forever">true</boolProp>
+            <stringProp name="LoopController.loops">${noUsersPerThread}</stringProp>
+          </LoopController>
+          <hashTree>
+            <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="User Index Counter" enabled="true">
+              <stringProp name="CounterConfig.start">${tUserStart}</stringProp>
+              <stringProp name="CounterConfig.end">${tUserMax}</stringProp>
+              <stringProp name="CounterConfig.incr">1</stringProp>
+              <stringProp name="CounterConfig.name">user_index</stringProp>
+              <stringProp name="CounterConfig.format"></stringProp>
+              <boolProp name="CounterConfig.per_user">false</boolProp>
+            </CounterConfig>
+            <hashTree/>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import org.apache.commons.codec.binary.Base64;
+String user = vars.get(&quot;username&quot;);
+String passwd = vars.get(&quot;password&quot;);
+String tenantidx = vars.get(&quot;tenant_index&quot;);
+String credentials = user + tenantidx + &quot;.com&quot; + &quot;:&quot; + passwd;
+
+int threadNumber = ctx.getThreadNum() + 1;
+log.info(&quot;Thread: &quot; + threadNumber + &quot;, Tenant: &quot; + tenantidx + &quot;, User:&quot; + vars.get(&quot;user_index&quot;));
+
+byte[] encodedUsernamePassword = Base64.encodeBase64(credentials.getBytes());
+vars.put(&quot;adminCredentials&quot;,new String(encodedUsernamePassword));</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="X-Server-Select" elementType="Header">
+                  <stringProp name="Header.name">X-Server-Select</stringProp>
+                  <stringProp name="Header.value">${serverNode}</stringProp>
+                </elementProp>
+                <elementProp name="Authorization" elementType="Header">
+                  <stringProp name="Header.name">Authorization</stringProp>
+                  <stringProp name="Header.value">Basic ${adminCredentials}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create User Account" enabled="true">
+              <stringProp name="HTTPSampler.proxyUser">admin</stringProp>
+              <stringProp name="HTTPSampler.proxyPass">admin</stringProp>
+              <stringProp name="HTTPSampler.domain">${is_host}</stringProp>
+              <stringProp name="HTTPSampler.port">${is_port}</stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
+              <stringProp name="HTTPSampler.path">/wso2/scim/Users</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+   &quot;schemas&quot;:[],&#xd;
+   &quot;userName&quot;:&quot;${usernamePrefix}${user_index}&quot;,&#xd;
+   &quot;password&quot;:&quot;${userPassword}&quot;,&#xd;
+   &quot;name&quot;:{&#xd;
+      &quot;familyName&quot;:&quot;${usernamePrefix}Family&quot;,&#xd;
+      &quot;givenName&quot;:&quot;${usernamePrefix}givenName&quot;&#xd;
+   },&#xd;
+   &quot;wso2Extension&quot;:{&#xd;
+      &quot;accountLocked&quot;:&quot;false&quot;&#xd;
+   },&#xd;
+   &quot;emails&quot;:[&#xd;
+      {&#xd;
+         &quot;primary&quot;:true,&#xd;
+         &quot;value&quot;:&quot;mail_home.com&quot;,&#xd;
+         &quot;type&quot;:&quot;home&quot;&#xd;
+      },&#xd;
+      {&#xd;
+         &quot;value&quot;:&quot;mail_work.com&quot;,&#xd;
+         &quot;type&quot;:&quot;work&quot;&#xd;
+      }&#xd;
+   ],&#xd;
+   &quot;roles&quot;:[  &#xd;
+      {  &#xd;
+         &quot;type&quot;:&quot;default&quot;,&#xd;
+         &quot;value&quot;:&quot;${rolename}&quot;&#xd;
+      }&#xd;
+   ]&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-465808698">&quot;userName&quot;:&quot;${usernamePrefix}${user_index}&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regex Extractor - SCIM ID" enabled="true">
+                <stringProp name="RegexExtractor.useHeaders">unescaped</stringProp>
+                <stringProp name="RegexExtractor.refname">scimID</stringProp>
+                <stringProp name="RegexExtractor.regex">&quot;id&quot;:&quot;(.+?)&quot;</stringProp>
+                <stringProp name="RegexExtractor.template">$1$</stringProp>
+                <stringProp name="RegexExtractor.default">FALSE</stringProp>
+                <stringProp name="RegexExtractor.match_number">0</stringProp>
+                <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              </RegexExtractor>
+              <hashTree/>
+            </hashTree>
+            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler">
+              <boolProp name="displayJMeterProperties">false</boolProp>
+              <boolProp name="displayJMeterVariables">true</boolProp>
+              <boolProp name="displaySystemProperties">false</boolProp>
+            </DebugSampler>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

@@ -1,0 +1,25 @@
+{
+  "server": {
+    "host": "is-perf-node",
+    "port": 9443,
+    "username": "admin@wso2.com",
+    "password": "tpass"
+  },
+  "test": {
+    "usernamePrefix": "testeuser_",
+    "userPassword": "Password_1",
+    "roleName": "brole2",
+    "tenantPrefix": "aorg_1"
+  },
+  "execution": {
+    "noOfThreads": 1,
+    "noOfUsers": 5,
+    "loopCount": 1,
+    "rampUpPeriod": 1,
+    "scimIdCsvPath": "scimIDs.csv",
+    "failedUsersCsvPath": "failedUsers.csv",
+    "noOfTenants": 1,
+    "userStartNumber": 1,
+    "tenantStartNumber": 1
+  }
+}

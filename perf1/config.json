@@ -1,0 +1,24 @@
+{
+  "server": {
+    "host": "localhost",
+    "port": 9443,
+    "username": "admin",
+    "password": "tpass"
+  },
+  "test": {
+    "usernamePrefix": "isTestUser_",
+    "userPassword": "Password_1",
+    "roleName": "isTestUserRole",
+    "tenantPrefix": "tenant"
+  },
+  "execution": {
+    "noOfThreads": 3,
+    "noOfUsers": 100,
+    "loopCount": 1000,
+    "rampUpPeriod": 10,
+    "scimIdCsvPath": "scimIDs.csv",
+    "noOfTenants": 5,
+    "userStartNumber": 1,
+    "tenantStartNumber": 1
+  }
+}
