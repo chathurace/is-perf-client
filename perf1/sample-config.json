@@ -9,7 +9,7 @@
     "usernamePrefix": "testeuser_",
     "userPassword": "Password_1",
     "roleName": "brole2",
-    "tenantPrefix": "aorg_1"
+    "tenantPrefix": "aorg_"
   },
   "execution": {
     "noOfThreads": 1,
@@ -20,6 +20,6 @@
     "failedUsersCsvPath": "failedUsers.csv",
     "noOfTenants": 1,
     "userStartNumber": 1,
-    "tenantStartNumber": 1
+    "tenantStartNumber": 2
   }
 }
