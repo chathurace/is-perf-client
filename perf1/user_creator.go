@@ -50,8 +50,9 @@ func (te *TestExecutor) ExecuteUserCreation() error {
 	
 	// Apply ramp-up delay between thread starts
 	rampUpDelay := time.Duration(te.config.Execution.RampUpPeriod) * time.Second / time.Duration(te.config.Execution.NoOfThreads)
-	
+
 	// Start worker goroutines
+	startTime := time.Now()
 	for _, task := range tasks {
 		wg.Add(1)
 		go te.userCreationWorker(task, resultChan, &wg)
@@ -66,7 +67,8 @@ func (te *TestExecutor) ExecuteUserCreation() error {
 	wg.Wait()
 	close(resultChan)
 	
-	fmt.Println("User creation phase completed.")
+	duration := time.Since(startTime)
+	fmt.Printf("User creation completed in %v\n", duration)
 	return nil
 }
 
@@ -74,6 +76,7 @@ func (te *TestExecutor) ExecuteUserCreation() error {
 func (te *TestExecutor) userCreationWorker(task WorkerTask, resultChan chan<- TestResult, wg *sync.WaitGroup) {
 	defer wg.Done()
 	
+	startTime := time.Now()
 	fmt.Printf("Thread %d: Creating users %d-%d for all tenants\n", 
 		task.ThreadID, task.UserStart, task.UserEnd)
 	
@@ -113,5 +116,6 @@ func (te *TestExecutor) userCreationWorker(task WorkerTask, resultChan chan<- Te
 		}
 	}
 	
-	fmt.Printf("Thread %d: Completed users %d-%d for all tenants\n", task.ThreadID, task.UserStart, task.UserEnd)
+	duration := time.Since(startTime)
+	fmt.Printf("Thread %d: Completed users %d-%d for all tenants in %v\n", task.ThreadID, task.UserStart, task.UserEnd, duration)
 }
